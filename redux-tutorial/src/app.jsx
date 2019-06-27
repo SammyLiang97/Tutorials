@@ -7,6 +7,8 @@ const mapStateToProps = state => ({
   todos: state.todoReducer.todos,
 });
 
+
+@connect(mapStateToProps)
 @autobind
 class App extends Component {
   render() {
@@ -26,7 +28,7 @@ class App extends Component {
 
 
 App.propTypes = {
-  todos: PropTypes.array.isRequired,
+  todos: PropTypes.array,
 };
 
-export default connect(mapStateToProps)(App);
+export default App;
