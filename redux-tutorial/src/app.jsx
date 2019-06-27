@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
+import Todo from './component/todo';
 
 const mapStateToProps = state => ({
   todos: state.todoReducer.todos,
@@ -16,10 +17,7 @@ class App extends Component {
     return (
       <React.Fragment>
         {todos.map(todo => (
-          <section key={todo.index}>
-            <p>{todo.title}</p>
-            <p>{todo.description}</p>
-          </section>
+          <Todo {...todo} key={todo.index} />
         ))}
       </React.Fragment>
     );
