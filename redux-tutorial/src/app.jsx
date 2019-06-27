@@ -1,9 +1,32 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { autobind } from 'core-decorators';
+import { connect } from 'react-redux';
 
-export default class App extends Component {
+const mapStateToProps = state => ({
+  todos: state.todoReducer.todos,
+});
+
+@autobind
+class App extends Component {
   render() {
+    const { todos } = this.props;
     return (
-      <React.Fragment>Hi</React.Fragment>
+      <React.Fragment>
+        {todos.map(todo => (
+          <section key={todo.index}>
+            <p>{todo.title}</p>
+            <p>{todo.description}</p>
+          </section>
+        ))}
+      </React.Fragment>
     );
   }
 }
+
+
+App.propTypes = {
+  todos: PropTypes.array.isRequired,
+};
+
+export default connect(mapStateToProps)(App);
