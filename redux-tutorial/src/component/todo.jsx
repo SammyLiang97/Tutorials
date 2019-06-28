@@ -4,6 +4,7 @@ import style from '../style/todo.css';
 
 function Todo({
   index, title, description, onTodoSelected, selectedTodoIndex = undefined,
+  onDeleteTodo,
 }) {
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events
@@ -14,6 +15,7 @@ function Todo({
     >
       <p>{title}</p>
       <p>{description}</p>
+      <button type="button" onClick={onDeleteTodo.bind(this, index)}>删除</button>
     </section>
   );
 }
@@ -24,6 +26,7 @@ Todo.propTypes = {
   description: PropTypes.string.isRequired,
   onTodoSelected: PropTypes.func.isRequired,
   selectedTodoIndex: PropTypes.number,
+  onDeleteTodo: PropTypes.func.isRequired,
 };
 
 export default Todo;

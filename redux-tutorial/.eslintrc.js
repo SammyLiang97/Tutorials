@@ -27,5 +27,7 @@ module.exports = {
     "react/forbid-prop-types": 0,
     "react/require-default-props": 0,
     "class-methods-use-this": 0,
+    "max-len": 0,
+    "no-param-reassign": ["error", { props: false }],
   },
 };

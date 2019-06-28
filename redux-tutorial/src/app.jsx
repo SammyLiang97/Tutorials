@@ -4,7 +4,7 @@ import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
 import Todo from './component/todo';
 import AddTodo from './component/addTodo';
-import { addTodo, selectedTodo } from './actions';
+import { addTodo, selectedTodo, deleteTodo } from './actions';
 
 const mapStateToProps = state => ({
   todos: state.todoReducer.todos,
@@ -14,21 +14,27 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   handleAddTodo: todo => dispatch(addTodo(todo)),
   handleTodoSelected: index => dispatch(selectedTodo(index)),
+  handleDeleteTodo: index => dispatch(deleteTodo(index)),
 });
-
 
 @connect(mapStateToProps, mapDispatchToProps)
 @autobind
 class App extends Component {
   onAddTodo(todo, ev) {
     ev.preventDefault();
-    const { handleAddTodo } = this.props;
+    const { handleAddTodo, todos } = this.props;
+    todo.index = todos[todos.length - 1].index + 1;
     handleAddTodo(todo);
   }
 
   handleTodoSelected(index) {
     const { handleTodoSelected } = this.props;
     handleTodoSelected(index);
+  }
+
+  handleDeleteTodo(index) {
+    const { handleDeleteTodo } = this.props;
+    handleDeleteTodo(index);
   }
 
   render() {
@@ -41,6 +47,7 @@ class App extends Component {
             key={todo.index}
             onTodoSelected={this.handleTodoSelected}
             selectedTodoIndex={selectedTodoIndex}
+            onDeleteTodo={this.handleDeleteTodo}
           />
         ))}
         <AddTodo onSubmit={this.onAddTodo} />
@@ -55,6 +62,7 @@ App.propTypes = {
   handleAddTodo: PropTypes.func,
   handleTodoSelected: PropTypes.func,
   selectedTodoIndex: PropTypes.number,
+  handleDeleteTodo: PropTypes.func,
 };
 
 export default App;
