@@ -2,9 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import style from '../style/todo.css';
 
-function Todo({ title, description }) {
+function Todo({
+  index, title, description, onTodoSelected, selectedTodoIndex = undefined,
+}) {
   return (
-    <section className={style.todo}>
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+    <section
+      className={`${style.todo} ${selectedTodoIndex === index ? style.selected : ''}`}
+      onClick={onTodoSelected.bind(this, index)}
+      role="presentation"
+    >
       <p>{title}</p>
       <p>{description}</p>
     </section>
@@ -12,8 +19,11 @@ function Todo({ title, description }) {
 }
 
 Todo.propTypes = {
+  index: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  onTodoSelected: PropTypes.func.isRequired,
+  selectedTodoIndex: PropTypes.number,
 };
 
 export default Todo;

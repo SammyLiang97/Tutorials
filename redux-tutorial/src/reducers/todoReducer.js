@@ -1,4 +1,4 @@
-import { ADD_TODO } from '../actions/actionTypes';
+import { ADD_TODO, SELECTED_TODO } from '../actions/actionTypes';
 
 const initialState = {
   todos: [
@@ -24,6 +24,10 @@ const todoReducer = (state = initialState, action) => {
           ...state.todos,
           action.todo,
         ],
+      });
+    case SELECTED_TODO:
+      return Object.assign({}, state, {
+        selectedTodoIndex: action.index,
       });
     default:
       return state;
